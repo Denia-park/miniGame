@@ -2,6 +2,9 @@ import java.util.Scanner;
 import java.util.Timer;
 import java.util.TimerTask;
 
+//해당 과제를 하면서 추후 다시 확인할 것
+//1. 공유 변수에 관해서 sync 함수를 쓰면 된다고 하는데 이것만 써도 되는지 확인하기.
+
 class userData{
     public static final int Hard = 3;
     public static final int Normal = 2;
@@ -144,14 +147,19 @@ class mainGame {
             userData.scanUserTypingAnswer();
             userData.abandonRestOfUserTypingAnswer();
             // userData.printUserTypingAnswer();
-
-            questionAnswer = Integer.parseInt(userData.answer);
-
-            if (isCorrectValue()) {
-                System.out.println(questionAnswer+ ": 정답 입니다!");
-                userData.plusUserScore();
-            } else {
-                System.out.println(questionAnswer+ ": 오답 입니다!");
+            
+            try {
+                questionAnswer = Integer.parseInt(userData.answer);
+                
+                if (isCorrectValue()) {
+                    System.out.println(questionAnswer+ ": 정답 입니다!");
+                    userData.plusUserScore();
+                } else {
+                    System.out.println(questionAnswer+ ": 오답 입니다!");
+                    userData.minusUserScore();
+                }
+            } catch (Exception e) {
+                System.out.println("소수점을 입력하셨습니다.");
                 userData.minusUserScore();
             }
             userData.printUserScore();
