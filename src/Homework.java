@@ -26,14 +26,14 @@ class userData{
         scan.nextLine();
     }
 
-    public static boolean IsAnswerIntegerExcept0(){
+    public static boolean IsAnswerFloatExcept0(){
         return (Double.compare(Double.parseDouble(answer),Hard)  != 0 && Double.compare(Double.parseDouble(answer),Normal)  != 0 && Double.compare(Double.parseDouble(answer),Easy)  != 0);
     }
 
     public static void checkGameDifficulty(){
         String tempDiff;
 
-        if(IsAnswerIntegerExcept0())
+        if(IsAnswerFloatExcept0())
         {
             if(Double.parseDouble(answer) != 0)
                 System.out.println(answer + ": 소수점 입력은 버림으로 처리해서 진행합니다.");
