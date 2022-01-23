@@ -82,20 +82,20 @@ class userData{
         return (answer.equals("n") || answer.equals("N"));
     }
 
-    public static void printUserScore() {
+    public static synchronized void printUserScore() {
         System.out.println("Your Score : " + gameScore);
     }
 
-    public static void plusUserScore() {
+    public static synchronized void plusUserScore() {
         gameScore += 3;
     }
 
-    public static void minusUserScore() {
+    public static synchronized void minusUserScore() {
         if (gameScore > 0)
             gameScore -= 1;
     }
 
-    public static void clearGameScore(){
+    public static synchronized void clearGameScore(){
         gameScore = 0;
     }
 }
@@ -161,7 +161,7 @@ class mainGame {
         checkUserWantToRestartGame();
     }
     
-    public static boolean isBelowStandardScore() {
+    public static synchronized boolean isBelowStandardScore() {
         return userData.gameScore<userData.standardScore;
     }
 
