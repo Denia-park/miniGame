@@ -5,10 +5,10 @@ import java.util.TimerTask;
 //해당 과제를 하면서 추후 다시 확인할 것
 //1. 공유 변수에 관해서 sync 함수를 쓰면 된다고 하는데 이것만 써도 되는지 확인하기.
 
-class userData{
-    public static final int Hard = 3;
-    public static final int Normal = 2;
-    public static final int Easy = 1;
+class UserData{
+    public static final int GAME_DIFFICULTY_HARD = 3;
+    public static final int GAME_DIFFICULTY_NORMAL = 2;
+    public static final int GAME_DIFFICULTY_EASY = 1;
 
     public static String answer;
     public static int gameScore;
@@ -29,14 +29,14 @@ class userData{
         scan.nextLine();
     }
 
-    public static boolean IsAnswerFloatExcept0(){
-        return (Double.compare(Double.parseDouble(answer),Hard)  != 0 && Double.compare(Double.parseDouble(answer),Normal)  != 0 && Double.compare(Double.parseDouble(answer),Easy)  != 0);
+    public static boolean isAnswerFloatExcept0(){
+        return (Double.compare(Double.parseDouble(answer),GAME_DIFFICULTY_HARD)  != 0 && Double.compare(Double.parseDouble(answer),GAME_DIFFICULTY_NORMAL)  != 0 && Double.compare(Double.parseDouble(answer),GAME_DIFFICULTY_EASY)  != 0);
     }
 
     public static void checkGameDifficulty(){
-        String tempDiff;
+        String tempDifficulty;
 
-        if(IsAnswerFloatExcept0())
+        if(isAnswerFloatExcept0())
         {
             if(Double.parseDouble(answer) != 0)
                 System.out.println(answer + ": 소수점 입력은 버림으로 처리해서 진행합니다.");
@@ -49,39 +49,39 @@ class userData{
             System.out.println(answer + ": 잘못된 값을 입력하셨습니다.");
             System.out.println("normal 난이도로 진행합니다.");
             
-            gameDifficulty = Normal;
+            gameDifficulty = GAME_DIFFICULTY_NORMAL;
             return;
         }
 
-        if(gameDifficulty == Hard)
+        if(gameDifficulty == GAME_DIFFICULTY_HARD)
         {
-            tempDiff = "Hard";
+            tempDifficulty = "Hard";
         }
-        else if(gameDifficulty == Normal)
+        else if(gameDifficulty == GAME_DIFFICULTY_NORMAL)
         {
-            tempDiff = "Normal";
+            tempDifficulty = "Normal";
         }
-        else if(gameDifficulty == Easy)
+        else if(gameDifficulty == GAME_DIFFICULTY_EASY)
         {
-            tempDiff = "Easy";
+            tempDifficulty = "Easy";
         }
         else
         {
-            tempDiff = "";
+            tempDifficulty = "";
         }
 
-        System.out.println(tempDiff+" 난이도를 선택하셨습니다.");
+        System.out.println(tempDifficulty+" 난이도를 선택하셨습니다.");
     }
 
     public static void printUserTypingAnswer() {
         System.out.println(answer);
     }
 
-    public static boolean UserWantToAgree() {
+    public static boolean isYes() {
         return (answer.equals("y") || answer.equals("Y"));
     }
 
-    public static boolean UserWantToRefuse() {
+    public static boolean isNo() {
         return (answer.equals("n") || answer.equals("N"));
     }
 
@@ -106,63 +106,63 @@ class userData{
 /**
  * mainGame
  */
-class mainGame {
+class MainGame {
     static int questionFisrtNumber = 0;
     static int questionSecondNumber = 0;
     static int questionAnswer = 0;
 
-    public static void setTimerByDiff(Timer ti) {
+    public static void setTimerByDifficulty(Timer ti) {
         TimerTask tt = new TimerTask() {
             @Override
             public void run() {
                 System.out.println("Time Out : 1점 감점");
-                userData.minusUserScore();
+                UserData.minusUserScore();
             }
         };
 
-        if (userData.gameDifficulty == userData.Hard) {
+        if (UserData.gameDifficulty == UserData.GAME_DIFFICULTY_HARD) {
             ti.scheduleAtFixedRate(tt, 1100, 1000);
         }
-        else if (userData.gameDifficulty == userData.Normal) {
+        else if (UserData.gameDifficulty == UserData.GAME_DIFFICULTY_NORMAL) {
             ti.scheduleAtFixedRate(tt, 3100, 3000);
         }
-        else if (userData.gameDifficulty == userData.Easy) {
+        else if (UserData.gameDifficulty == UserData.GAME_DIFFICULTY_EASY) {
             ti.scheduleAtFixedRate(tt, 5100, 5000);
         }
     }
 
     public static void start() {
 
-        userData.clearGameScore();
+        UserData.clearGameScore();
 
         while (isBelowStandardScore()) {
             final Timer ti = new Timer();
-            setTimerByDiff(ti);
+            setTimerByDifficulty(ti);
 
             questionFisrtNumber = getRandomValue();
             questionSecondNumber = getRandomValue();
 
             System.out.println("\n문제:" + questionFisrtNumber + "*" + questionSecondNumber + "?");
 
-            userData.scanUserTypingAnswer();
-            userData.abandonRestOfUserTypingAnswer();
+            UserData.scanUserTypingAnswer();
+            UserData.abandonRestOfUserTypingAnswer();
             // userData.printUserTypingAnswer();
             
             try {
-                questionAnswer = Integer.parseInt(userData.answer);
+                questionAnswer = Integer.parseInt(UserData.answer);
                 
                 if (isCorrectValue()) {
                     System.out.println(questionAnswer+ ": 정답 입니다!");
-                    userData.plusUserScore();
+                    UserData.plusUserScore();
                 } else {
                     System.out.println(questionAnswer+ ": 오답 입니다!");
-                    userData.minusUserScore();
+                    UserData.minusUserScore();
                 }
             } catch (Exception e) {
                 System.out.println("소수점을 입력하셨습니다.");
-                userData.minusUserScore();
+                UserData.minusUserScore();
             }
-            userData.printUserScore();
+            UserData.printUserScore();
             ti.cancel();
         }
         System.out.println("30점 이상을 획득하셨습니다. 축하드립니다!.\n");
@@ -170,7 +170,7 @@ class mainGame {
     }
     
     public static synchronized boolean isBelowStandardScore() {
-        return userData.gameScore<userData.standardScore;
+        return UserData.gameScore<UserData.standardScore;
     }
 
     public static boolean isCorrectValue() {
@@ -178,12 +178,12 @@ class mainGame {
     }
 
     public static int getRandomValue() {
-        int rtVal;
+        int returnValue;
         int randomMaxValue = 9;
         int randomMinValue = 2;
-        rtVal = (int) ((Math.random() * (randomMaxValue + 1 - randomMinValue)) + randomMinValue); //(int) ((Math.random() * (최댓값+1-최소값)) + 최소값)
+        returnValue = (int) ((Math.random() * (randomMaxValue + 1 - randomMinValue)) + randomMinValue); //(int) ((Math.random() * (최댓값+1-최소값)) + 최소값)
 
-        return rtVal;
+        return returnValue;
     }
 
     public static void checkUserWantToRestartGame() {
@@ -204,22 +204,22 @@ public class Homework {
         System.out.println("먼저 난이도 설정을 해주세요. ※Easy[5초] ,2: Normal[3초] ,3: Hard[1초]");
         System.out.println("1: Easy ,2: Normal ,3: Hard 숫자 1,2,3 중 1개의 값을 입력해주세요.\n");
 
-        userData.scanUserTypingAnswer();
-        userData.abandonRestOfUserTypingAnswer();
-        userData.checkGameDifficulty();
+        UserData.scanUserTypingAnswer();
+        UserData.abandonRestOfUserTypingAnswer();
+        UserData.checkGameDifficulty();
 
         System.out.println("게임을 진행하시겠습니까 ? (Y / N)");
 
         while (true) {
-            userData.scanUserTypingAnswer();
-            userData.abandonRestOfUserTypingAnswer();
+            UserData.scanUserTypingAnswer();
+            UserData.abandonRestOfUserTypingAnswer();
             // userData.printUserTypingAnswer();
 
-            if (userData.UserWantToAgree()) {
+            if (UserData.isYes()) {
                 System.out.println("게임을 시작하겠습니다.");
 
-                mainGame.start();
-            } else if (userData.UserWantToRefuse()) {
+                MainGame.start();
+            } else if (UserData.isNo()) {
                 System.out.println("다음에 다시 방문해주시면 감사하겠습니다.");
 
                 break;
