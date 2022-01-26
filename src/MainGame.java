@@ -7,6 +7,9 @@ public class MainGame {
     static int questionSecondNumber = 0;
     static int questionAnswer = 0;
 
+    static final int randomMaxValue = 9;
+    static final int randomMinValue = 2;
+
     public static void setTimerByDifficulty(Timer ti) {
         TimerTask tt = new TimerTask() {
             @Override
@@ -75,8 +78,6 @@ public class MainGame {
 
     public static int getRandomValue() {
         int returnValue;
-        int randomMaxValue = 9;
-        int randomMinValue = 2;
         returnValue = (int) ((Math.random() * (randomMaxValue + 1 - randomMinValue)) + randomMinValue); //(int) ((Math.random() * (최댓값+1-최소값)) + 최소값)
 
         return returnValue;

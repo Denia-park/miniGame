@@ -9,9 +9,9 @@ public class UserData {
     public static String answer;
     public static int gameScore;
     public static int gameDifficulty;
-    public static int correctAnswerScore = 3;
-    public static int incorrectAnswerScore = -1;
-    public static int standardScore = 30; // you have to be over this score to end Game
+    public static final int correctAnswerScore = 3;
+    public static final int incorrectAnswerScore = -1;
+    public static final int standardScore = 30; // you have to be over this score to end Game
 
     // public static String tempDiff;
 
