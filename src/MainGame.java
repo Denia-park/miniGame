@@ -10,7 +10,7 @@ public class MainGame {
     final int randomMaxValue = 9;
     final int randomMinValue = 2;
 
-    private UserData UD = new UserData();
+    UserData UD = new UserData();
 
     void setTimerByDifficulty(Timer ti) {
         TimerTask tt = new TimerTask() {
@@ -32,11 +32,11 @@ public class MainGame {
         }
     }
 
-    public void start() {
+    void start() {
 
         UD.clearGameScore();
 
-        while (isBelowStandardScore()) {
+        while (UD.isBelowStandardScore()) {
             final Timer ti = new Timer();
             setTimerByDifficulty(ti);
 
@@ -70,10 +70,6 @@ public class MainGame {
         checkUserWantToRestartGame();
     }
     
-    synchronized boolean isBelowStandardScore() {
-        return UD.gameScore<UD.standardScore;
-    }
-
     boolean isCorrectValue() {
         return questionAnswer == (questionFisrtNumber * questionSecondNumber);
     }

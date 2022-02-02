@@ -2,17 +2,17 @@ import java.util.Scanner;
 
 public class UserData {
     
-    public final int GAME_DIFFICULTY_HARD = 3;
-    public final int GAME_DIFFICULTY_NORMAL = 2;
-    public final int GAME_DIFFICULTY_EASY = 1;
+    final int GAME_DIFFICULTY_HARD = 3;
+    final int GAME_DIFFICULTY_NORMAL = 2;
+    final int GAME_DIFFICULTY_EASY = 1;
 
-    public final int correctAnswerScore = 3;
-    public final int incorrectAnswerScore = -1;
-    public final int standardScore = 30; // you have to be over this score to end Game
+    final int correctAnswerScore = 3;
+    final int incorrectAnswerScore = -1;
+    final int standardScore = 30; // you have to be over this score to end Game
 
-    String answer;
-    int gameScore;
-    int gameDifficulty;
+    String answer = null;
+    private int gameScore = 0;
+    int gameDifficulty = GAME_DIFFICULTY_EASY;
 
     Scanner scan = new Scanner(System.in);
 
@@ -97,5 +97,7 @@ public class UserData {
         gameScore = 0;
     }
 
-    
+    synchronized boolean isBelowStandardScore() {
+        return gameScore<standardScore;
+    }
 }
