@@ -2,34 +2,33 @@ import java.util.Scanner;
 
 public class UserData {
     
-    public static final int GAME_DIFFICULTY_HARD = 3;
-    public static final int GAME_DIFFICULTY_NORMAL = 2;
-    public static final int GAME_DIFFICULTY_EASY = 1;
+    public final int GAME_DIFFICULTY_HARD = 3;
+    public final int GAME_DIFFICULTY_NORMAL = 2;
+    public final int GAME_DIFFICULTY_EASY = 1;
 
-    public static String answer;
-    public static int gameScore;
-    public static int gameDifficulty;
-    public static final int correctAnswerScore = 3;
-    public static final int incorrectAnswerScore = -1;
-    public static final int standardScore = 30; // you have to be over this score to end Game
+    public final int correctAnswerScore = 3;
+    public final int incorrectAnswerScore = -1;
+    public final int standardScore = 30; // you have to be over this score to end Game
 
-    // public static String tempDiff;
+    String answer;
+    int gameScore;
+    int gameDifficulty;
 
-    static Scanner scan = new Scanner(System.in);
+    Scanner scan = new Scanner(System.in);
 
-    public static void scanUserTypingAnswer() {
+    void scanUserTypingAnswer() {
         answer = scan.next();
     }
 
-    public static void abandonRestOfUserTypingAnswer() {
+    void abandonRestOfUserTypingAnswer() {
         scan.nextLine();
     }
 
-    public static boolean isAnswerFloatExcept0(){
+    boolean isAnswerFloatExcept0(){
         return (Double.compare(Double.parseDouble(answer),GAME_DIFFICULTY_HARD)  != 0 && Double.compare(Double.parseDouble(answer),GAME_DIFFICULTY_NORMAL)  != 0 && Double.compare(Double.parseDouble(answer),GAME_DIFFICULTY_EASY)  != 0);
     }
 
-    public static void checkGameDifficulty(){
+    void checkGameDifficulty(){
         String tempDifficulty;
 
         if(isAnswerFloatExcept0())
@@ -69,32 +68,32 @@ public class UserData {
         System.out.println(tempDifficulty+" 난이도를 선택하셨습니다.");
     }
 
-    public static void printUserTypingAnswer() {
+    void printUserTypingAnswer() {
         System.out.println(answer);
     }
 
-    public static boolean isYes() {
+    boolean isYes() {
         return (answer.equals("y") || answer.equals("Y"));
     }
 
-    public static boolean isNo() {
+    boolean isNo() {
         return (answer.equals("n") || answer.equals("N"));
     }
 
-    public static synchronized void printUserScore() {
+    synchronized void printUserScore() {
         System.out.println("Your Score : " + gameScore);
     }
 
-    public static synchronized void plusUserScore() {
+    synchronized void plusUserScore() {
         gameScore += 3;
     }
 
-    public static synchronized void minusUserScore() {
+    synchronized void minusUserScore() {
         if (gameScore > 0)
             gameScore -= 1;
     }
 
-    public static synchronized void clearGameScore(){
+    synchronized void clearGameScore(){
         gameScore = 0;
     }
 
