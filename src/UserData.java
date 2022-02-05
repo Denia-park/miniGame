@@ -41,8 +41,7 @@ public class UserData {
 
         if(gameDifficulty<1 || gameDifficulty>3)
         {
-            System.out.println(answer + ": 잘못된 값을 입력하셨습니다.\n"+
-                                        "normal 난이도로 진행합니다.");
+            System.out.println(answer + ": 잘못된 값을 입력하셨습니다.\nnormal 난이도로 진행합니다.");
             
             gameDifficulty = GAME_DIFFICULTY_NORMAL;
             return;

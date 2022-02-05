@@ -43,7 +43,11 @@ public class MainGame {
             questionFisrtNumber = getRandomValue();
             questionSecondNumber = getRandomValue();
 
-            System.out.println("\n문제:" + questionFisrtNumber + "*" + questionSecondNumber + "?");
+            StringBuilder SB = new StringBuilder();
+
+            SB.append("\n문제:").append(questionFisrtNumber).append("*").append(questionSecondNumber).append("?");
+
+            System.out.println(SB.toString());
 
             UD.scanUserTypingAnswer();
             UD.abandonRestOfUserTypingAnswer();
@@ -60,7 +64,7 @@ public class MainGame {
                     UD.minusUserScore();
                 }
             } catch (Exception e) {
-                System.out.println("소수점을 입력하셨습니다.");
+                System.out.println("잘못된 값을 입력하셨습니다.");
                 UD.minusUserScore();
             }
             UD.printUserScore();
