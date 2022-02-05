@@ -93,7 +93,7 @@ public class UserData {
             gameScore -= 1;
     }
 
-    synchronized void clearGameScore(){
+    void clearGameScore(){
         gameScore = 0;
     }
 
